@@ -1,0 +1,92 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="groceryappModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="group">
+    <Key>
+      <PropertyRef Name="group_uid" />
+    </Key>
+    <Property Name="group_uid" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="group_name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="access_code" Type="String" MaxLength="6" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="users_groups" Relationship="Self.FK_users_groups_groups1" FromRole="groups" ToRole="users_groups" />
+  </EntityType>
+  <EntityType Name="item">
+    <Key>
+      <PropertyRef Name="item_uid" />
+    </Key>
+    <Property Name="item_uid" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="user_uid" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="item_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="item_price" Type="Decimal" Precision="18" Scale="0" />
+    <Property Name="stats_type" Type="Int32" Nullable="false" />
+    <Property Name="group_uid" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="sysdiagram">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="user">
+    <Key>
+      <PropertyRef Name="user_uid" />
+    </Key>
+    <Property Name="user_uid" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="item_uid" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="user_name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="group_uid" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="users_groups" Relationship="Self.FK_users_groups_users1" FromRole="users" ToRole="users_groups" />
+  </EntityType>
+  <EntityType Name="users_groups">
+    <Key>
+      <PropertyRef Name="USER_GROUP_JUNCTION" />
+    </Key>
+    <Property Name="user_uid" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="group_uid" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="USER_GROUP_JUNCTION" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="group" Relationship="Self.FK_users_groups_groups1" FromRole="users_groups" ToRole="groups" />
+    <NavigationProperty Name="user" Relationship="Self.FK_users_groups_users1" FromRole="users_groups" ToRole="users" />
+  </EntityType>
+  <Association Name="FK_users_groups_groups1">
+    <End Role="groups" Type="Self.group" Multiplicity="1" />
+    <End Role="users_groups" Type="Self.users_groups" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="groups">
+        <PropertyRef Name="group_uid" />
+      </Principal>
+      <Dependent Role="users_groups">
+        <PropertyRef Name="group_uid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_users_groups_users1">
+    <End Role="users" Type="Self.user" Multiplicity="1" />
+    <End Role="users_groups" Type="Self.users_groups" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="users">
+        <PropertyRef Name="user_uid" />
+      </Principal>
+      <Dependent Role="users_groups">
+        <PropertyRef Name="user_uid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="groups" EntityType="Self.group" />
+    <EntitySet Name="items" EntityType="Self.item" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+    <EntitySet Name="users" EntityType="Self.user" />
+    <EntitySet Name="users_groups" EntityType="Self.users_groups" />
+    <AssociationSet Name="FK_users_groups_groups1" Association="Self.FK_users_groups_groups1">
+      <End Role="groups" EntitySet="groups" />
+      <End Role="users_groups" EntitySet="users_groups" />
+    </AssociationSet>
+    <AssociationSet Name="FK_users_groups_users1" Association="Self.FK_users_groups_users1">
+      <End Role="users" EntitySet="users" />
+      <End Role="users_groups" EntitySet="users_groups" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="groceryappModelStoreContainer" CdmEntityContainer="groceryappEntities">
+    <EntitySetMapping Name="users">
+      <EntityTypeMapping TypeName="groceryappModel.user">
+        <MappingFragment StoreEntitySet="users">
+          <ScalarProperty Name="user_uid" ColumnName="user_uid" />
+          <ScalarProperty Name="user_name" ColumnName="user_name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
