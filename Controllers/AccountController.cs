@@ -346,6 +346,13 @@ namespace GroceryAppApi.Controllers
                     user_name = user.UserName,
                     user_uid = user.Id
                 };
+
+                group n_group = new group()
+                {
+                    group_name = "My Group", // default group name
+                    group_uid = Guid.NewGuid().ToString()
+                };
+                dbContext.groups.Add(n_group); // default add name's group
                 dbContext.users.Add(n_user);
                 dbContext.SaveChanges();
             }

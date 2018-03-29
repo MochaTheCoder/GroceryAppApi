@@ -20,5 +20,6 @@ namespace GroceryAppApi
         public Nullable<decimal> item_price { get; set; }
         public int stats_type { get; set; }
         public string group_uid { get; set; }
+        public string group_name { get; set; }
     }
 }

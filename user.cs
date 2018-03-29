@@ -23,7 +23,6 @@ namespace GroceryAppApi
         public string user_uid { get; set; }
         public string item_uid { get; set; }
         public string user_name { get; set; }
-        public string group_uid { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<users_groups> users_groups { get; set; }

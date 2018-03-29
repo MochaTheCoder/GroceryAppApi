@@ -11,11 +11,12 @@ using System.Web.Http;
 
 namespace GroceryAppApi.Controllers
 {
+    [Authorize]
     public class ItemsController : ApiController
     {
         groceryappEntities dbContext = new groceryappEntities();
 
-        [Authorize]
+        
         [HttpPost]
         [Route("api/Items/")]
         public HttpResponseMessage postItem([FromBody] ItemModel jsonBody)
@@ -46,7 +47,6 @@ namespace GroceryAppApi.Controllers
             return Request.CreateResponse(HttpStatusCode.OK, n_item);
         }
 
-        [Authorize]
         [HttpGet]
         [Route("api/Items/")]
         public HttpResponseMessage getItems([FromBody] ItemModel jsonBody)
@@ -60,7 +60,7 @@ namespace GroceryAppApi.Controllers
             return Request.CreateResponse(HttpStatusCode.OK, items);
         }
 
-        [Authorize]
+
         [HttpGet]
         [Route("api/Items/{group_uid}")]
         public HttpResponseMessage getItemsFiltered(string group_uid)

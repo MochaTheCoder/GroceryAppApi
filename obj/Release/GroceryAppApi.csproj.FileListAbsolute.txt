@@ -87,3 +87,4 @@ C:\Users\Jonathan\Documents\Visual Studio 2015\Projects\GroceryAppApi\GroceryApp
 C:\Users\Jonathan\Documents\Visual Studio 2015\Projects\GroceryAppApi\GroceryAppApi\bin\System.Web.Http.Owin.xml
 C:\Users\Jonathan\Documents\Visual Studio 2015\Projects\GroceryAppApi\GroceryAppApi\obj\Release\GroceryAppApi.dll
 C:\Users\Jonathan\Documents\Visual Studio 2015\Projects\GroceryAppApi\GroceryAppApi\obj\Release\GroceryAppApi.pdb
+C:\Users\Jonathan\Documents\Visual Studio 2015\Projects\GroceryAppApi\GroceryAppApi\obj\Release\GroceryAppApi.csprojResolveAssemblyReference.cache

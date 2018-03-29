@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -9,6 +10,24 @@ namespace GroceryAppApi.Controllers
 {
     [Authorize]
     public class UserController : ApiController
+    {
+        groceryappEntities dbContext = new groceryappEntities();
+        [HttpGet]
+        [Route("api/User/")]
+        public HttpResponseMessage getUserInfo()
+        {
+            string user_uid = User.Identity.GetUserId();
+            user _user = dbContext.users.Find(user_uid);
+            if(_user == null)
+            {
+                return Request.CreateResponse(HttpStatusCode.NotFound, "No user");
+            }
+            return Request.CreateResponse(HttpStatusCode.OK, _user);
+        }
+
+    }
+
+    internal class User
     {
     }
 }
