@@ -27,7 +27,4 @@ namespace GroceryAppApi.Controllers
 
     }
 
-    internal class User
-    {
-    }
 }

@@ -75,6 +75,7 @@
           <ScalarProperty Name="stats_type" ColumnName="stats_type" />
           <ScalarProperty Name="group_uid" ColumnName="group_uid" />
           <ScalarProperty Name="group_name" ColumnName="group_name" />
+          <ScalarProperty Name="crossed_off" ColumnName="crossed_off" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

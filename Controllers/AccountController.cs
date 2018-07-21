@@ -346,19 +346,31 @@ namespace GroceryAppApi.Controllers
                     user_name = user.UserName,
                     user_uid = user.Id
                 };
-
-                group n_group = new group()
-                {
-                    group_name = "My Group", // default group name
-                    group_uid = Guid.NewGuid().ToString()
-                };
-                dbContext.groups.Add(n_group); // default add name's group
                 dbContext.users.Add(n_user);
                 dbContext.SaveChanges();
+                string group_uid = Guid.NewGuid().ToString();
+                group n_group = new group()
+                {
+                    group_name = "My Group",
+                    group_uid = group_uid
+                };
+                dbContext.groups.Add(n_group);
+
+                users_groups n_users_groups = new users_groups()
+                {
+                    group_uid = group_uid,
+                    user_uid = user.Id,
+                    USER_GROUP_JUNCTION = Guid.NewGuid().ToString()
+                };
+
+                dbContext.users_groups.Add(n_users_groups);
+                dbContext.SaveChanges();
+
+
             }
 
 
-                return Ok();
+            return Ok();
         }
 
         // POST api/Account/RegisterExternal

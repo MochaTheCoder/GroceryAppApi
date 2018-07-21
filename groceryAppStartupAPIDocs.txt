@@ -1,0 +1,49 @@
+// 03/28/2018 
+
+
+-- POST REQUIRES HEADERS --
+
+Content-Type: application/json
+-----------------------------
+
+-- AUTHORIZED REQUIRES HEADERS --
+
+Authorization :bearer X_2ji0pFbLPEJ6
+----------------------------------
+
+Grocery App API
+
+Register User
+
+POST
+/api/account/register
+
+https://mochagroceryapp.gear.host/api/account/register
+{"Name" : "FirstUser", "Password" : "aaAA1!", "Email" : "firstEmail@yahoo.com"}
+
+POST Login
+
+/token
+https://mochagroceryapp.gear.host/token
+username=FirstUser&password=aaAA1!&grant_type=password
+
+POST Register Group
+/api/groups/new/{groupName}
+https://mochagroceryapp.gear.host/api/groups/new/firstGroup
+GET User groups 
+/api/groups
+https://mochagroceryapp.gear.host/api/groups
+
+group_uid=daa6e7b0-2b4d-4cf9-8fa9-b20a46bbdf04 // my group
+group_uid=2521021e-8383-4665-a8c6-189251c5a7eb // home
+
+Register Item
+
+POST
+/api/Items
+https://mochagroceryapp.gear.host/api/Items
+{
+	"group_uid": "b5a5fbb8-1452-47cc-be93-12cf891b4862",
+	"item_name": "milk",
+}
+

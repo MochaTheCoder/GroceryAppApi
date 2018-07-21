@@ -85,6 +85,7 @@
           <Property Name="stats_type" Type="int" Nullable="false" />
           <Property Name="group_uid" Type="nvarchar" MaxLength="128" />
           <Property Name="group_name" Type="nvarchar" MaxLength="128" />
+          <Property Name="crossed_off" Type="bit" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -313,6 +314,7 @@
           <Property Name="stats_type" Type="Int32" Nullable="false" />
           <Property Name="group_uid" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="group_name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="crossed_off" Type="Boolean" />
         </EntityType>
         <EntityType Name="sysdiagram">
           <Key>
@@ -511,6 +513,7 @@
                 <ScalarProperty Name="stats_type" ColumnName="stats_type" />
                 <ScalarProperty Name="group_uid" ColumnName="group_uid" />
                 <ScalarProperty Name="group_name" ColumnName="group_name" />
+                <ScalarProperty Name="crossed_off" ColumnName="crossed_off" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

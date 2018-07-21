@@ -79,6 +79,7 @@
     <Property Name="stats_type" Type="Int32" Nullable="false" />
     <Property Name="group_uid" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
     <Property Name="group_name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="crossed_off" Type="Boolean" />
   </EntityType>
   <EntityType Name="sysdiagram">
     <Key>

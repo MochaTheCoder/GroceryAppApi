@@ -80,6 +80,7 @@
     <Property Name="stats_type" Type="int" Nullable="false" />
     <Property Name="group_uid" Type="nvarchar" MaxLength="128" />
     <Property Name="group_name" Type="nvarchar" MaxLength="128" />
+    <Property Name="crossed_off" Type="bit" />
   </EntityType>
   <EntityType Name="sysdiagrams">
     <Key>

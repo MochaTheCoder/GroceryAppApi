@@ -21,5 +21,6 @@ namespace GroceryAppApi
         public int stats_type { get; set; }
         public string group_uid { get; set; }
         public string group_name { get; set; }
+        public Nullable<bool> crossed_off { get; set; }
     }
 }

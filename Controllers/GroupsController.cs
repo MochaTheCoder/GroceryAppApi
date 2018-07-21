@@ -18,15 +18,18 @@ namespace GroceryAppApi.Controllers
         public HttpResponseMessage getGroups()
         {
             string user_uid = User.Identity.GetUserId();
-            List<string> group_uids = dbContext.users_groups.Where(e => e.user_uid == user_uid).Select(s => s.group_uid).ToList();
-            List<group> user_groups = dbContext.groups.Where(e => group_uids.Contains(e.group_uid)).ToList();
+            List<group> user_groups = (from groups in dbContext.groups
+                         join group_ids in dbContext.users_groups
+                         on groups.group_uid equals group_ids.group_uid
+                         where group_ids.user_uid == user_uid
+                         select groups).ToList();
             return Request.CreateResponse(HttpStatusCode.OK, user_groups);
         }
 
         [Authorize]
         [HttpPost]
         [Route("api/groups/{access_code}")]
-        public HttpResponseMessage addGroup(string access_code)
+        public HttpResponseMessage addGroup(string access_code) 
         {
             string user_uid = User.Identity.GetUserId();
             group _group = dbContext.groups.Where(e => e.access_code == access_code).FirstOrDefault();

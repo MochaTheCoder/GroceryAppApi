@@ -11,18 +11,19 @@ using System.Web.Http;
 
 namespace GroceryAppApi.Controllers
 {
-    [Authorize]
+    //[Authorize]
     public class ItemsController : ApiController
     {
         groceryappEntities dbContext = new groceryappEntities();
 
         
+        //Add item to shopping list
         [HttpPost]
-        [Route("api/Items/")]
+        [Route("api/Items/new")]
         public HttpResponseMessage postItem([FromBody] ItemModel jsonBody)
         {
-            bool groupExists = (dbContext.groups.Where(e => e.group_uid == jsonBody.group_uid).FirstOrDefault() != null);
-            if (!groupExists)
+            group _group = dbContext.groups.Where(e => e.group_uid == jsonBody.group_uid).FirstOrDefault();
+            if (_group == null)
             {
                 return Request.CreateResponse(HttpStatusCode.NotFound, "Group Not Found");
             }
@@ -32,7 +33,8 @@ namespace GroceryAppApi.Controllers
                 item_name = jsonBody.item_name,
                 item_price = jsonBody.item_price,
                 item_uid = Guid.NewGuid().ToString(),
-                user_uid = User.Identity.GetUserId()
+                user_uid = User.Identity.GetUserId(),
+                group_name = _group.group_name
             };
             dbContext.items.Add(n_item);
             try
@@ -46,6 +48,45 @@ namespace GroceryAppApi.Controllers
             }
             return Request.CreateResponse(HttpStatusCode.OK, n_item);
         }
+        
+        //Cross off item from shopping list
+        [HttpPost]
+        [Route("api/Items/cross")]
+        public HttpResponseMessage crossItem([FromBody] item itemCrossed)
+        {
+            item dbItem = dbContext.items.Where(e => e.item_uid == itemCrossed.item_uid).FirstOrDefault();
+            dbItem.crossed_off = true;
+            try
+            {
+                dbContext.SaveChanges();
+
+            }
+            catch (Exception e)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest);
+            }
+            return Request.CreateResponse(HttpStatusCode.OK);
+        }
+
+        //UnCross off item from shopping list
+        [HttpPost]
+        [Route("api/Items/uncross")]
+        public HttpResponseMessage uncrossItem([FromBody] item itemCrossed)
+        {
+            item dbItem = dbContext.items.Where(e => e.item_uid == itemCrossed.item_uid).FirstOrDefault();
+            dbItem.crossed_off = false;
+            try
+            {
+                dbContext.SaveChanges();
+
+            }
+            catch (Exception e)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest);
+            }
+            return Request.CreateResponse(HttpStatusCode.OK);
+        }
+
 
         [HttpGet]
         [Route("api/Items/")]
