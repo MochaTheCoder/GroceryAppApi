@@ -4,42 +4,32 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="groceryappModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="__MigrationHistory">
-          <Key>
-            <PropertyRef Name="MigrationId" />
-            <PropertyRef Name="ContextKey" />
-          </Key>
-          <Property Name="MigrationId" Type="nvarchar" MaxLength="150" Nullable="false" />
-          <Property Name="ContextKey" Type="nvarchar" MaxLength="300" Nullable="false" />
-          <Property Name="Model" Type="varbinary(max)" Nullable="false" />
-          <Property Name="ProductVersion" Type="nvarchar" MaxLength="32" Nullable="false" />
-        </EntityType>
+      <Schema Namespace="groceryappdbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="AspNetRoles">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="256" Nullable="false" />
         </EntityType>
         <EntityType Name="AspNetUserClaims">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="ClaimType" Type="nvarchar(max)" />
           <Property Name="ClaimValue" Type="nvarchar(max)" />
-          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
         </EntityType>
         <EntityType Name="AspNetUserLogins">
           <Key>
-            <PropertyRef Name="UserId" />
             <PropertyRef Name="LoginProvider" />
             <PropertyRef Name="ProviderKey" />
+            <PropertyRef Name="UserId" />
           </Key>
-          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="LoginProvider" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="ProviderKey" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
         </EntityType>
         <EntityType Name="AspNetUserRoles">
           <Key>
@@ -54,38 +44,36 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="UserName" Type="nvarchar(max)" />
+          <Property Name="Email" Type="nvarchar" MaxLength="256" />
+          <Property Name="EmailConfirmed" Type="bit" Nullable="false" />
           <Property Name="PasswordHash" Type="nvarchar(max)" />
           <Property Name="SecurityStamp" Type="nvarchar(max)" />
-          <Property Name="Email" Type="nvarchar" MaxLength="128" />
-          <Property Name="PhoneNumber" Type="nvarchar" MaxLength="128" />
+          <Property Name="PhoneNumber" Type="nvarchar(max)" />
           <Property Name="PhoneNumberConfirmed" Type="bit" Nullable="false" />
           <Property Name="TwoFactorEnabled" Type="bit" Nullable="false" />
           <Property Name="LockoutEndDateUtc" Type="datetime" />
           <Property Name="LockoutEnabled" Type="bit" Nullable="false" />
-          <Property Name="EmailConfirmed" Type="bit" Nullable="false" />
           <Property Name="AccessFailedCount" Type="int" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
         </EntityType>
-        <EntityType Name="groups">
+        <EntityType Name="group">
           <Key>
             <PropertyRef Name="group_uid" />
           </Key>
           <Property Name="group_uid" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="group_name" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="access_code" Type="nvarchar" MaxLength="6" />
+          <Property Name="access_code" Type="nchar" MaxLength="6" Nullable="false" />
         </EntityType>
-        <EntityType Name="items">
+        <EntityType Name="item">
           <Key>
             <PropertyRef Name="item_uid" />
           </Key>
           <Property Name="item_uid" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="user_uid" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="item_name" Type="nvarchar" MaxLength="50" />
-          <Property Name="item_price" Type="decimal" Precision="18" Scale="2" />
-          <Property Name="stats_type" Type="int" Nullable="false" />
+          <Property Name="item_name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="item_price" Type="decimal" Precision="18" Scale="0" />
           <Property Name="group_uid" Type="nvarchar" MaxLength="128" />
-          <Property Name="group_name" Type="nvarchar" MaxLength="128" />
-          <Property Name="crossed_off" Type="bit" />
+          <Property Name="crossed_off" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -97,23 +85,22 @@
           <Property Name="version" Type="int" />
           <Property Name="definition" Type="varbinary(max)" />
         </EntityType>
-        <EntityType Name="users">
+        <EntityType Name="user">
           <Key>
             <PropertyRef Name="user_uid" />
           </Key>
           <Property Name="user_uid" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="item_uid" Type="nchar" MaxLength="10" />
           <Property Name="user_name" Type="nvarchar" MaxLength="128" Nullable="false" />
         </EntityType>
-        <EntityType Name="users_groups">
+        <EntityType Name="user_groups">
           <Key>
-            <PropertyRef Name="USER_GROUP_JUNCTION" />
+            <PropertyRef Name="user_group_PK" />
           </Key>
           <Property Name="user_uid" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="group_uid" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="USER_GROUP_JUNCTION" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="user_group_PK" Type="nvarchar" MaxLength="128" Nullable="false" />
         </EntityType>
-        <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_User_Id">
+        <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
           <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
@@ -169,43 +156,54 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_users_groups_groups1">
-          <End Role="groups" Type="Self.groups" Multiplicity="1" />
-          <End Role="users_groups" Type="Self.users_groups" Multiplicity="*" />
+        <Association Name="FK_item_user">
+          <End Role="user" Type="Self.user" Multiplicity="1" />
+          <End Role="item" Type="Self.item" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="groups">
-              <PropertyRef Name="group_uid" />
-            </Principal>
-            <Dependent Role="users_groups">
-              <PropertyRef Name="group_uid" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_users_groups_users1">
-          <End Role="users" Type="Self.users" Multiplicity="1" />
-          <End Role="users_groups" Type="Self.users_groups" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="users">
+            <Principal Role="user">
               <PropertyRef Name="user_uid" />
             </Principal>
-            <Dependent Role="users_groups">
+            <Dependent Role="item">
               <PropertyRef Name="user_uid" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="groceryappModelStoreContainer">
-          <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
+        <Association Name="FK_user_groups_group">
+          <End Role="group" Type="Self.group" Multiplicity="1" />
+          <End Role="user_groups" Type="Self.user_groups" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="group">
+              <PropertyRef Name="group_uid" />
+            </Principal>
+            <Dependent Role="user_groups">
+              <PropertyRef Name="group_uid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_user_groups_user">
+          <End Role="user" Type="Self.user" Multiplicity="1" />
+          <End Role="user_groups" Type="Self.user_groups" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="user_uid" />
+            </Principal>
+            <Dependent Role="user_groups">
+              <PropertyRef Name="user_uid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="groceryappdbModelStoreContainer">
           <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaims" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="groups" EntityType="Self.groups" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="items" EntityType="Self.items" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="group" EntityType="Self.group" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="item" EntityType="Self.item" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="users" EntityType="Self.users" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="users_groups" EntityType="Self.users_groups" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_User_Id" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_User_Id">
+          <EntitySet Name="user" EntityType="Self.user" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="user_groups" EntityType="Self.user_groups" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
           </AssociationSet>
@@ -221,36 +219,30 @@
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
           </AssociationSet>
-          <AssociationSet Name="FK_users_groups_groups1" Association="Self.FK_users_groups_groups1">
-            <End Role="groups" EntitySet="groups" />
-            <End Role="users_groups" EntitySet="users_groups" />
+          <AssociationSet Name="FK_item_user" Association="Self.FK_item_user">
+            <End Role="user" EntitySet="user" />
+            <End Role="item" EntitySet="item" />
           </AssociationSet>
-          <AssociationSet Name="FK_users_groups_users1" Association="Self.FK_users_groups_users1">
-            <End Role="users" EntitySet="users" />
-            <End Role="users_groups" EntitySet="users_groups" />
+          <AssociationSet Name="FK_user_groups_group" Association="Self.FK_user_groups_group">
+            <End Role="group" EntitySet="group" />
+            <End Role="user_groups" EntitySet="user_groups" />
+          </AssociationSet>
+          <AssociationSet Name="FK_user_groups_user" Association="Self.FK_user_groups_user">
+            <End Role="user" EntitySet="user" />
+            <End Role="user_groups" EntitySet="user_groups" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="groceryappModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="C__MigrationHistory">
-          <Key>
-            <PropertyRef Name="MigrationId" />
-            <PropertyRef Name="ContextKey" />
-          </Key>
-          <Property Name="MigrationId" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="ContextKey" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Model" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
-          <Property Name="ProductVersion" Type="String" MaxLength="32" FixedLength="false" Unicode="true" Nullable="false" />
-        </EntityType>
+      <Schema Namespace="groceryappdbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="AspNetRole">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="AspNetUsers" Relationship="Self.AspNetUserRoles" FromRole="AspNetRoles" ToRole="AspNetUsers" />
         </EntityType>
         <EntityType Name="AspNetUserClaim">
@@ -258,20 +250,20 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="ClaimType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="ClaimValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="AspNetUser" Relationship="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_User_Id" FromRole="AspNetUserClaims" ToRole="AspNetUsers" />
+          <NavigationProperty Name="AspNetUser" Relationship="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUserClaims" ToRole="AspNetUsers" />
         </EntityType>
         <EntityType Name="AspNetUserLogin">
           <Key>
-            <PropertyRef Name="UserId" />
             <PropertyRef Name="LoginProvider" />
             <PropertyRef Name="ProviderKey" />
+            <PropertyRef Name="UserId" />
           </Key>
-          <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="LoginProvider" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="ProviderKey" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="AspNetUser" Relationship="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUserLogins" ToRole="AspNetUsers" />
         </EntityType>
         <EntityType Name="AspNetUser">
@@ -279,18 +271,18 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="UserName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="EmailConfirmed" Type="Boolean" Nullable="false" />
           <Property Name="PasswordHash" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="SecurityStamp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Email" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="PhoneNumber" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="PhoneNumberConfirmed" Type="Boolean" Nullable="false" />
           <Property Name="TwoFactorEnabled" Type="Boolean" Nullable="false" />
           <Property Name="LockoutEndDateUtc" Type="DateTime" Precision="3" />
           <Property Name="LockoutEnabled" Type="Boolean" Nullable="false" />
-          <Property Name="EmailConfirmed" Type="Boolean" Nullable="false" />
           <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="AspNetUserClaims" Relationship="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_User_Id" FromRole="AspNetUsers" ToRole="AspNetUserClaims" />
+          <Property Name="UserName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="AspNetUserClaims" Relationship="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserClaims" />
           <NavigationProperty Name="AspNetUserLogins" Relationship="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserLogins" />
           <NavigationProperty Name="AspNetRoles" Relationship="Self.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
         </EntityType>
@@ -300,8 +292,8 @@
           </Key>
           <Property Name="group_uid" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="group_name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="access_code" Type="String" MaxLength="6" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="users_groups" Relationship="Self.FK_users_groups_groups1" FromRole="groups" ToRole="users_groups" />
+          <Property Name="access_code" Type="String" MaxLength="6" FixedLength="true" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="user_groups" Relationship="Self.FK_user_groups_group" FromRole="group" ToRole="user_groups" />
         </EntityType>
         <EntityType Name="item">
           <Key>
@@ -309,12 +301,11 @@
           </Key>
           <Property Name="item_uid" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="user_uid" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="item_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="item_price" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="stats_type" Type="Int32" Nullable="false" />
+          <Property Name="item_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="item_price" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="group_uid" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="group_name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="crossed_off" Type="Boolean" />
+          <Property Name="crossed_off" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="user" Relationship="Self.FK_item_user" FromRole="item" ToRole="user" />
         </EntityType>
         <EntityType Name="sysdiagram">
           <Key>
@@ -331,21 +322,21 @@
             <PropertyRef Name="user_uid" />
           </Key>
           <Property Name="user_uid" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="item_uid" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
           <Property Name="user_name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="users_groups" Relationship="Self.FK_users_groups_users1" FromRole="users" ToRole="users_groups" />
+          <NavigationProperty Name="items" Relationship="Self.FK_item_user" FromRole="user" ToRole="item" />
+          <NavigationProperty Name="user_groups" Relationship="Self.FK_user_groups_user" FromRole="user" ToRole="user_groups" />
         </EntityType>
-        <EntityType Name="users_groups">
+        <EntityType Name="user_groups">
           <Key>
-            <PropertyRef Name="USER_GROUP_JUNCTION" />
+            <PropertyRef Name="user_group_PK" />
           </Key>
           <Property Name="user_uid" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="group_uid" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="USER_GROUP_JUNCTION" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="group" Relationship="Self.FK_users_groups_groups1" FromRole="users_groups" ToRole="groups" />
-          <NavigationProperty Name="user" Relationship="Self.FK_users_groups_users1" FromRole="users_groups" ToRole="users" />
+          <Property Name="user_group_PK" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="group" Relationship="Self.FK_user_groups_group" FromRole="user_groups" ToRole="group" />
+          <NavigationProperty Name="user" Relationship="Self.FK_user_groups_user" FromRole="user_groups" ToRole="user" />
         </EntityType>
-        <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_User_Id">
+        <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
           <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
@@ -373,26 +364,38 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_users_groups_groups1">
-          <End Role="groups" Type="Self.group" Multiplicity="1" />
-          <End Role="users_groups" Type="Self.users_groups" Multiplicity="*" />
+        <Association Name="FK_user_groups_group">
+          <End Role="group" Type="Self.group" Multiplicity="1" />
+          <End Role="user_groups" Type="Self.user_groups" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="groups">
+            <Principal Role="group">
               <PropertyRef Name="group_uid" />
             </Principal>
-            <Dependent Role="users_groups">
+            <Dependent Role="user_groups">
               <PropertyRef Name="group_uid" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_users_groups_users1">
-          <End Role="users" Type="Self.user" Multiplicity="1" />
-          <End Role="users_groups" Type="Self.users_groups" Multiplicity="*" />
+        <Association Name="FK_item_user">
+          <End Role="user" Type="Self.user" Multiplicity="1" />
+          <End Role="item" Type="Self.item" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="users">
+            <Principal Role="user">
               <PropertyRef Name="user_uid" />
             </Principal>
-            <Dependent Role="users_groups">
+            <Dependent Role="item">
+              <PropertyRef Name="user_uid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_user_groups_user">
+          <End Role="user" Type="Self.user" Multiplicity="1" />
+          <End Role="user_groups" Type="Self.user_groups" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="user_uid" />
+            </Principal>
+            <Dependent Role="user_groups">
               <PropertyRef Name="user_uid" />
             </Dependent>
           </ReferentialConstraint>
@@ -401,8 +404,7 @@
           <End Role="AspNetRoles" Type="Self.AspNetRole" Multiplicity="*" />
           <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="*" />
         </Association>
-        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="C__MigrationHistory" EntityType="Self.C__MigrationHistory" />
+        <EntityContainer Name="groceryappdbEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRole" />
           <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaim" />
           <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogin" />
@@ -411,8 +413,8 @@
           <EntitySet Name="items" EntityType="Self.item" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
           <EntitySet Name="users" EntityType="Self.user" />
-          <EntitySet Name="users_groups" EntityType="Self.users_groups" />
-          <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_User_Id" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_User_Id">
+          <EntitySet Name="user_groups" EntityType="Self.user_groups" />
+          <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
           </AssociationSet>
@@ -420,13 +422,17 @@
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
           </AssociationSet>
-          <AssociationSet Name="FK_users_groups_groups1" Association="Self.FK_users_groups_groups1">
-            <End Role="groups" EntitySet="groups" />
-            <End Role="users_groups" EntitySet="users_groups" />
+          <AssociationSet Name="FK_user_groups_group" Association="Self.FK_user_groups_group">
+            <End Role="group" EntitySet="groups" />
+            <End Role="user_groups" EntitySet="user_groups" />
           </AssociationSet>
-          <AssociationSet Name="FK_users_groups_users1" Association="Self.FK_users_groups_users1">
-            <End Role="users" EntitySet="users" />
-            <End Role="users_groups" EntitySet="users_groups" />
+          <AssociationSet Name="FK_item_user" Association="Self.FK_item_user">
+            <End Role="user" EntitySet="users" />
+            <End Role="item" EntitySet="items" />
+          </AssociationSet>
+          <AssociationSet Name="FK_user_groups_user" Association="Self.FK_user_groups_user">
+            <End Role="user" EntitySet="users" />
+            <End Role="user_groups" EntitySet="user_groups" />
           </AssociationSet>
           <AssociationSet Name="AspNetUserRoles" Association="Self.AspNetUserRoles">
             <End Role="AspNetRoles" EntitySet="AspNetRoles" />
@@ -438,19 +444,9 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="groceryappModelStoreContainer" CdmEntityContainer="Entities">
-          <EntitySetMapping Name="C__MigrationHistory">
-            <EntityTypeMapping TypeName="groceryappModel.C__MigrationHistory">
-              <MappingFragment StoreEntitySet="__MigrationHistory">
-                <ScalarProperty Name="MigrationId" ColumnName="MigrationId" />
-                <ScalarProperty Name="ContextKey" ColumnName="ContextKey" />
-                <ScalarProperty Name="Model" ColumnName="Model" />
-                <ScalarProperty Name="ProductVersion" ColumnName="ProductVersion" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
+        <EntityContainerMapping StorageEntityContainer="groceryappdbModelStoreContainer" CdmEntityContainer="groceryappdbEntities">
           <EntitySetMapping Name="AspNetRoles">
-            <EntityTypeMapping TypeName="groceryappModel.AspNetRole">
+            <EntityTypeMapping TypeName="groceryappdbModel.AspNetRole">
               <MappingFragment StoreEntitySet="AspNetRoles">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -458,45 +454,45 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="AspNetUserClaims">
-            <EntityTypeMapping TypeName="groceryappModel.AspNetUserClaim">
+            <EntityTypeMapping TypeName="groceryappdbModel.AspNetUserClaim">
               <MappingFragment StoreEntitySet="AspNetUserClaims">
                 <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="ClaimType" ColumnName="ClaimType" />
                 <ScalarProperty Name="ClaimValue" ColumnName="ClaimValue" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="AspNetUserLogins">
-            <EntityTypeMapping TypeName="groceryappModel.AspNetUserLogin">
+            <EntityTypeMapping TypeName="groceryappdbModel.AspNetUserLogin">
               <MappingFragment StoreEntitySet="AspNetUserLogins">
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="LoginProvider" ColumnName="LoginProvider" />
                 <ScalarProperty Name="ProviderKey" ColumnName="ProviderKey" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="AspNetUsers">
-            <EntityTypeMapping TypeName="groceryappModel.AspNetUser">
+            <EntityTypeMapping TypeName="groceryappdbModel.AspNetUser">
               <MappingFragment StoreEntitySet="AspNetUsers">
                 <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
                 <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
                 <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
                 <ScalarProperty Name="PhoneNumberConfirmed" ColumnName="PhoneNumberConfirmed" />
                 <ScalarProperty Name="TwoFactorEnabled" ColumnName="TwoFactorEnabled" />
                 <ScalarProperty Name="LockoutEndDateUtc" ColumnName="LockoutEndDateUtc" />
                 <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
-                <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
                 <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="groups">
-            <EntityTypeMapping TypeName="groceryappModel.group">
-              <MappingFragment StoreEntitySet="groups">
+            <EntityTypeMapping TypeName="groceryappdbModel.group">
+              <MappingFragment StoreEntitySet="group">
                 <ScalarProperty Name="group_uid" ColumnName="group_uid" />
                 <ScalarProperty Name="group_name" ColumnName="group_name" />
                 <ScalarProperty Name="access_code" ColumnName="access_code" />
@@ -504,21 +500,19 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="items">
-            <EntityTypeMapping TypeName="groceryappModel.item">
-              <MappingFragment StoreEntitySet="items">
+            <EntityTypeMapping TypeName="groceryappdbModel.item">
+              <MappingFragment StoreEntitySet="item">
                 <ScalarProperty Name="item_uid" ColumnName="item_uid" />
                 <ScalarProperty Name="user_uid" ColumnName="user_uid" />
                 <ScalarProperty Name="item_name" ColumnName="item_name" />
                 <ScalarProperty Name="item_price" ColumnName="item_price" />
-                <ScalarProperty Name="stats_type" ColumnName="stats_type" />
                 <ScalarProperty Name="group_uid" ColumnName="group_uid" />
-                <ScalarProperty Name="group_name" ColumnName="group_name" />
                 <ScalarProperty Name="crossed_off" ColumnName="crossed_off" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="sysdiagrams">
-            <EntityTypeMapping TypeName="groceryappModel.sysdiagram">
+            <EntityTypeMapping TypeName="groceryappdbModel.sysdiagram">
               <MappingFragment StoreEntitySet="sysdiagrams">
                 <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="principal_id" ColumnName="principal_id" />
@@ -529,24 +523,23 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="users">
-            <EntityTypeMapping TypeName="groceryappModel.user">
-              <MappingFragment StoreEntitySet="users">
+            <EntityTypeMapping TypeName="groceryappdbModel.user">
+              <MappingFragment StoreEntitySet="user">
                 <ScalarProperty Name="user_uid" ColumnName="user_uid" />
-                <ScalarProperty Name="item_uid" ColumnName="item_uid" />
                 <ScalarProperty Name="user_name" ColumnName="user_name" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="users_groups">
-            <EntityTypeMapping TypeName="groceryappModel.users_groups">
-              <MappingFragment StoreEntitySet="users_groups">
+          <EntitySetMapping Name="user_groups">
+            <EntityTypeMapping TypeName="groceryappdbModel.user_groups">
+              <MappingFragment StoreEntitySet="user_groups">
                 <ScalarProperty Name="user_uid" ColumnName="user_uid" />
                 <ScalarProperty Name="group_uid" ColumnName="group_uid" />
-                <ScalarProperty Name="USER_GROUP_JUNCTION" ColumnName="USER_GROUP_JUNCTION" />
+                <ScalarProperty Name="user_group_PK" ColumnName="user_group_PK" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <AssociationSetMapping Name="AspNetUserRoles" TypeName="groceryappModel.AspNetUserRoles" StoreEntitySet="AspNetUserRoles">
+          <AssociationSetMapping Name="AspNetUserRoles" TypeName="groceryappdbModel.AspNetUserRoles" StoreEntitySet="AspNetUserRoles">
             <EndProperty Name="AspNetRoles">
               <ScalarProperty Name="Id" ColumnName="RoleId" />
             </EndProperty>

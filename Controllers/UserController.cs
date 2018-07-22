@@ -11,7 +11,7 @@ namespace GroceryAppApi.Controllers
     [Authorize]
     public class UserController : ApiController
     {
-        groceryappEntities dbContext = new groceryappEntities();
+        groceryappdbEntities dbContext = new groceryappdbEntities();
         [HttpGet]
         [Route("api/User/")]
         public HttpResponseMessage getUserInfo()

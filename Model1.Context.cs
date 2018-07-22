@@ -13,12 +13,11 @@ namespace GroceryAppApi
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class groceryappEntities : DbContext
+    public partial class groceryappdbEntities : DbContext
     {
-        public groceryappEntities()
-            : base("name=groceryappEntities")
+        public groceryappdbEntities()
+            : base("name=groceryappdbEntities")
         {
-            Configuration.LazyLoadingEnabled = false;
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -26,7 +25,6 @@ namespace GroceryAppApi
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<C__MigrationHistory> C__MigrationHistory { get; set; }
         public virtual DbSet<AspNetRole> AspNetRoles { get; set; }
         public virtual DbSet<AspNetUserClaim> AspNetUserClaims { get; set; }
         public virtual DbSet<AspNetUserLogin> AspNetUserLogins { get; set; }
@@ -35,6 +33,6 @@ namespace GroceryAppApi
         public virtual DbSet<item> items { get; set; }
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<user> users { get; set; }
-        public virtual DbSet<users_groups> users_groups { get; set; }
+        public virtual DbSet<user_groups> user_groups { get; set; }
     }
 }

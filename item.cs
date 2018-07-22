@@ -18,9 +18,9 @@ namespace GroceryAppApi
         public string user_uid { get; set; }
         public string item_name { get; set; }
         public Nullable<decimal> item_price { get; set; }
-        public int stats_type { get; set; }
         public string group_uid { get; set; }
-        public string group_name { get; set; }
-        public Nullable<bool> crossed_off { get; set; }
+        public bool crossed_off { get; set; }
+    
+        public virtual user user { get; set; }
     }
 }

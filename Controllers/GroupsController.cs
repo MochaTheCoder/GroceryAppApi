@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNet.Identity;
+﻿using GroceryAppApi.Models.EntityModels;
+using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,16 +11,17 @@ namespace GroceryAppApi.Controllers
 {
     public class GroupsController : ApiController
     {
-        groceryappEntities dbContext = new groceryappEntities();
+        groceryappdbEntities dbContext = new groceryappdbEntities();
 
         [Authorize]
         [HttpGet]
         [Route("api/groups")]
         public HttpResponseMessage getGroups()
         {
+            // Left off returning the entity.. need to return a model obj
             string user_uid = User.Identity.GetUserId();
-            List<group> user_groups = (from groups in dbContext.groups
-                         join group_ids in dbContext.users_groups
+            List<GroupModel> user_groups = (from groups in dbContext.groups
+                         join group_ids in dbContext.user_groups
                          on groups.group_uid equals group_ids.group_uid
                          where group_ids.user_uid == user_uid
                          select groups).ToList();
@@ -38,22 +40,22 @@ namespace GroceryAppApi.Controllers
                 return Request.CreateResponse(HttpStatusCode.NotFound);
 
             }
-            users_groups n_users_groups = new users_groups()
+            user_groups n_users_groups = new user_groups()
             {
                 group_uid = _group.group_uid,
                 user_uid = User.Identity.GetUserId(),
-                USER_GROUP_JUNCTION = Guid.NewGuid().ToString()
+                user_group_PK = Guid.NewGuid().ToString()
             };
             try
             {
-                dbContext.users_groups.Add(n_users_groups);
+                dbContext.user_groups.Add(n_users_groups);
                 dbContext.SaveChanges();
             }
             catch(Exception e)
             {
                 return Request.CreateResponse(HttpStatusCode.BadRequest, "Database could not be saved");
             }
-            return Request.CreateResponse(HttpStatusCode.OK, n_users_groups.USER_GROUP_JUNCTION);
+            return Request.CreateResponse(HttpStatusCode.OK, n_users_groups.user_group_PK);
         }
 
         [Authorize]
@@ -69,14 +71,14 @@ namespace GroceryAppApi.Controllers
             };
             dbContext.groups.Add(n_group);
 
-            users_groups n_users_groups = new users_groups()
+            user_groups n_user_groups = new user_groups()
             {
                 group_uid = group_uid,
                 user_uid = User.Identity.GetUserId(),
-                USER_GROUP_JUNCTION = Guid.NewGuid().ToString()
+                user_group_PK = Guid.NewGuid().ToString()
             };
 
-            dbContext.users_groups.Add(n_users_groups);
+            dbContext.user_groups.Add(n_user_groups);
 
             try
             {

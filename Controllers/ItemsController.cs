@@ -14,7 +14,7 @@ namespace GroceryAppApi.Controllers
     //[Authorize]
     public class ItemsController : ApiController
     {
-        groceryappEntities dbContext = new groceryappEntities();
+        groceryappdbEntities dbContext = new groceryappdbEntities();
 
         
         //Add item to shopping list
@@ -34,7 +34,6 @@ namespace GroceryAppApi.Controllers
                 item_price = jsonBody.item_price,
                 item_uid = Guid.NewGuid().ToString(),
                 user_uid = User.Identity.GetUserId(),
-                group_name = _group.group_name
             };
             dbContext.items.Add(n_item);
             try

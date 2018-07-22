@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Security.Claims;
@@ -339,9 +340,9 @@ namespace GroceryAppApi.Controllers
                 return GetErrorResult(result);
             }
 
-            using (groceryappEntities dbContext = new groceryappEntities())
+            using (groceryappdbEntities dbContext = new groceryappdbEntities())
             {
-                user n_user = new GroceryAppApi.user()
+                user n_user = new user()
                 {
                     user_name = user.UserName,
                     user_uid = user.Id
@@ -352,21 +353,19 @@ namespace GroceryAppApi.Controllers
                 group n_group = new group()
                 {
                     group_name = "My Group",
-                    group_uid = group_uid
+                    group_uid = group_uid,
+                    access_code = Helpers.GetRandomString(5)
                 };
                 dbContext.groups.Add(n_group);
 
-                users_groups n_users_groups = new users_groups()
+                user_groups n_user_groups = new user_groups()
                 {
                     group_uid = group_uid,
                     user_uid = user.Id,
-                    USER_GROUP_JUNCTION = Guid.NewGuid().ToString()
+                    user_group_PK = Guid.NewGuid().ToString()
                 };
-
-                dbContext.users_groups.Add(n_users_groups);
+                dbContext.user_groups.Add(n_user_groups);
                 dbContext.SaveChanges();
-
-
             }
 
 

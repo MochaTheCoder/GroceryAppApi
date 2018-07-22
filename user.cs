@@ -17,14 +17,16 @@ namespace GroceryAppApi
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public user()
         {
-            this.users_groups = new HashSet<users_groups>();
+            this.items = new HashSet<item>();
+            this.user_groups = new HashSet<user_groups>();
         }
     
         public string user_uid { get; set; }
-        public string item_uid { get; set; }
         public string user_name { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<users_groups> users_groups { get; set; }
+        public virtual ICollection<item> items { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<user_groups> user_groups { get; set; }
     }
 }

@@ -1,18 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-  <EntityContainerMapping StorageEntityContainer="groceryappModelStoreContainer" CdmEntityContainer="Entities">
-    <EntitySetMapping Name="C__MigrationHistory">
-      <EntityTypeMapping TypeName="groceryappModel.C__MigrationHistory">
-        <MappingFragment StoreEntitySet="__MigrationHistory">
-          <ScalarProperty Name="MigrationId" ColumnName="MigrationId" />
-          <ScalarProperty Name="ContextKey" ColumnName="ContextKey" />
-          <ScalarProperty Name="Model" ColumnName="Model" />
-          <ScalarProperty Name="ProductVersion" ColumnName="ProductVersion" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
+  <EntityContainerMapping StorageEntityContainer="groceryappdbModelStoreContainer" CdmEntityContainer="groceryappdbEntities">
     <EntitySetMapping Name="AspNetRoles">
-      <EntityTypeMapping TypeName="groceryappModel.AspNetRole">
+      <EntityTypeMapping TypeName="groceryappdbModel.AspNetRole">
         <MappingFragment StoreEntitySet="AspNetRoles">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Name" ColumnName="Name" />
@@ -20,45 +10,45 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="AspNetUserClaims">
-      <EntityTypeMapping TypeName="groceryappModel.AspNetUserClaim">
+      <EntityTypeMapping TypeName="groceryappdbModel.AspNetUserClaim">
         <MappingFragment StoreEntitySet="AspNetUserClaims">
           <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
           <ScalarProperty Name="ClaimType" ColumnName="ClaimType" />
           <ScalarProperty Name="ClaimValue" ColumnName="ClaimValue" />
-          <ScalarProperty Name="UserId" ColumnName="UserId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="AspNetUserLogins">
-      <EntityTypeMapping TypeName="groceryappModel.AspNetUserLogin">
+      <EntityTypeMapping TypeName="groceryappdbModel.AspNetUserLogin">
         <MappingFragment StoreEntitySet="AspNetUserLogins">
-          <ScalarProperty Name="UserId" ColumnName="UserId" />
           <ScalarProperty Name="LoginProvider" ColumnName="LoginProvider" />
           <ScalarProperty Name="ProviderKey" ColumnName="ProviderKey" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="AspNetUsers">
-      <EntityTypeMapping TypeName="groceryappModel.AspNetUser">
+      <EntityTypeMapping TypeName="groceryappdbModel.AspNetUser">
         <MappingFragment StoreEntitySet="AspNetUsers">
           <ScalarProperty Name="Id" ColumnName="Id" />
-          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
           <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
           <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
-          <ScalarProperty Name="Email" ColumnName="Email" />
           <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
           <ScalarProperty Name="PhoneNumberConfirmed" ColumnName="PhoneNumberConfirmed" />
           <ScalarProperty Name="TwoFactorEnabled" ColumnName="TwoFactorEnabled" />
           <ScalarProperty Name="LockoutEndDateUtc" ColumnName="LockoutEndDateUtc" />
           <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
-          <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
           <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="groups">
-      <EntityTypeMapping TypeName="groceryappModel.group">
-        <MappingFragment StoreEntitySet="groups">
+      <EntityTypeMapping TypeName="groceryappdbModel.group">
+        <MappingFragment StoreEntitySet="group">
           <ScalarProperty Name="group_uid" ColumnName="group_uid" />
           <ScalarProperty Name="group_name" ColumnName="group_name" />
           <ScalarProperty Name="access_code" ColumnName="access_code" />
@@ -66,21 +56,19 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="items">
-      <EntityTypeMapping TypeName="groceryappModel.item">
-        <MappingFragment StoreEntitySet="items">
+      <EntityTypeMapping TypeName="groceryappdbModel.item">
+        <MappingFragment StoreEntitySet="item">
           <ScalarProperty Name="item_uid" ColumnName="item_uid" />
           <ScalarProperty Name="user_uid" ColumnName="user_uid" />
           <ScalarProperty Name="item_name" ColumnName="item_name" />
           <ScalarProperty Name="item_price" ColumnName="item_price" />
-          <ScalarProperty Name="stats_type" ColumnName="stats_type" />
           <ScalarProperty Name="group_uid" ColumnName="group_uid" />
-          <ScalarProperty Name="group_name" ColumnName="group_name" />
           <ScalarProperty Name="crossed_off" ColumnName="crossed_off" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="sysdiagrams">
-      <EntityTypeMapping TypeName="groceryappModel.sysdiagram">
+      <EntityTypeMapping TypeName="groceryappdbModel.sysdiagram">
         <MappingFragment StoreEntitySet="sysdiagrams">
           <ScalarProperty Name="name" ColumnName="name" />
           <ScalarProperty Name="principal_id" ColumnName="principal_id" />
@@ -91,24 +79,23 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="users">
-      <EntityTypeMapping TypeName="groceryappModel.user">
-        <MappingFragment StoreEntitySet="users">
+      <EntityTypeMapping TypeName="groceryappdbModel.user">
+        <MappingFragment StoreEntitySet="user">
           <ScalarProperty Name="user_uid" ColumnName="user_uid" />
-          <ScalarProperty Name="item_uid" ColumnName="item_uid" />
           <ScalarProperty Name="user_name" ColumnName="user_name" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="users_groups">
-      <EntityTypeMapping TypeName="groceryappModel.users_groups">
-        <MappingFragment StoreEntitySet="users_groups">
+    <EntitySetMapping Name="user_groups">
+      <EntityTypeMapping TypeName="groceryappdbModel.user_groups">
+        <MappingFragment StoreEntitySet="user_groups">
           <ScalarProperty Name="user_uid" ColumnName="user_uid" />
           <ScalarProperty Name="group_uid" ColumnName="group_uid" />
-          <ScalarProperty Name="USER_GROUP_JUNCTION" ColumnName="USER_GROUP_JUNCTION" />
+          <ScalarProperty Name="user_group_PK" ColumnName="user_group_PK" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <AssociationSetMapping Name="AspNetUserRoles" TypeName="groceryappModel.AspNetUserRoles" StoreEntitySet="AspNetUserRoles">
+    <AssociationSetMapping Name="AspNetUserRoles" TypeName="groceryappdbModel.AspNetUserRoles" StoreEntitySet="AspNetUserRoles">
       <EndProperty Name="AspNetRoles">
         <ScalarProperty Name="Id" ColumnName="RoleId" />
       </EndProperty>
